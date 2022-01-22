@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Dodaj laptop</h1>
+    <form th:object="${laptop}" th:action="@{/laptop/add}" method="post">
+        <input type="text" th:field="*{name}"><br>
+        <input type="number" th:field="*{price}"><br>
+        <input type="text" th:field="*{cpu}"><br>
+        <input type="number" th:field="*{ram}"><br>
+        <button type="submit">Zapisz</button>
+    </form>
+</body>
+</html>

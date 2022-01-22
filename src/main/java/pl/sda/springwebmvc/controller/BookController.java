@@ -3,6 +3,8 @@ package pl.sda.springwebmvc.controller;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.springwebmvc.model.Book;
 import pl.sda.springwebmvc.model.BookRepository;
@@ -33,9 +35,13 @@ public class BookController {
     }
 
     @PostMapping(value = "/add")
-    public String addBook(@ModelAttribute Book book){
-        books.save(book);
-        return "redirect:/book/list";
+    public String addBook(@Validated @ModelAttribute Book book, BindingResult result){
+        if (result.hasErrors()){
+            return "/book/th-add-form";
+        } else {
+            books.save(book);
+            return "redirect:/book/list";
+        }
     }
 
     @GetMapping("/list")
