@@ -58,6 +58,10 @@ public class ServletController {
                 " Obecnie masz lat " + (LocalDate.now().getYear() - birth.getYear()) + "</h2>";
     }
 
+    @RequestMapping("/hello-form")
+    public String showHelloForm(){
+        return "hello-form";
+    }
 
     @RequestMapping("/power")
     @ResponseBody
