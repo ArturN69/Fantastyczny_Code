@@ -24,6 +24,14 @@ public class BookController {
         return "/book/add-form";
     }
 
+    @GetMapping("/add-th-form")
+    public String showAddBookThForm(Model model){
+        model.addAttribute("book", Book.builder()
+                        .title("Nowa książka")
+                .build());
+        return "/book/th-add-form";
+    }
+
     @PostMapping(value = "/add")
     public String addBook(@ModelAttribute Book book){
         books.save(book);

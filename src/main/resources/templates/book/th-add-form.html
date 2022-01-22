@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj książkę</title>
+</head>
+<body>
+    <h1>Dodaj książkę</h1>
+    <form th:object="${book}" th:action="@{/book/add}" method="post">
+        <label for="title">Tytuł</label><br>
+        <input type="text" th:field = "*{title}"><br>
+        <label for="authors">Autorzy</label><br>
+        <input type="text" th:field = "*{authors}"><br>
+        <label for="isbn"></label>ISBN<br>
+        <input type="text" th:field = "*{isbn}"><br>
+        <label for="publishingYear">Rok publikacji</label><br>
+        <input type="number" th:field = "*{publishingYear}"><br>
+        <label for="price"></label>Cena<br>
+        <input type="number" th:field = "*{price}"><br>
+        <label for="publisher">Wydawnictwo</label><br>
+        <input type="text" th:field = "*{publisher}"><br>
+        <label for="firstEdition">Czy pierwsze wydanie</label><br>
+        <input type="checkbox" th:field = "*{firstEdition}"><br>
+        <button type="submit">Zapisz</button>
+</body>
+</html>
