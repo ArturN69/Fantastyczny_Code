@@ -14,5 +14,9 @@ public class Book {
     private String isbn;
     private int publishingYear;
     private String publisher;
-    private boolean firstEdition;
+    private Boolean firstEdition;
+
+    public boolean isFirstEdition(){
+        return firstEdition == null ? false : firstEdition;
+    }
 }

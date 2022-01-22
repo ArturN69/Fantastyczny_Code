@@ -6,7 +6,28 @@
 </head>
 <body>
     <h1>Dodaj książkę</h1>
-    <form >
+    <form action="/book/add" method="post">
+        <label for="title">Tytuł</label><br>
+        <input type="text" name="title" id="title"> <br>
+
+        <label for="authors">Autorzy</label><br>
+        <input type="text" name="authors" id="authors"> <br>
+
+        <label for="price">Cena</label><br>
+        <input type="number" name="price" id="price"> <br>
+
+        <label for="isbn">ISBN</label><br>
+        <input type="text" name="isbn" id="isbn"> <br>
+
+        <label for="publishingYear">Rok wydania</label><br>
+        <input type="number" name="publishingYear" id="publishingYear"> <br>
+
+        <label for="publisher">Wydawnictwo</label><br>
+        <input type="text" name="publisher" id="publisher"> <br>
+
+        <label for="firstEdition">Czy pierwsze wydanie</label><br>
+        <input type="checkbox" name="firstEdition" id="firstEdition"> <br>
+
         <button type="submit">Zapisz</button>
     </form>
 </body>
