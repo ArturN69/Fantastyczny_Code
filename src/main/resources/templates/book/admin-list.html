@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>List książek</title>
+</head>
+<body>
+<h1 th:text="|Lista książek|"></h1>
+<h3 th:text="|Liczba: ${books.size()}|"></h3>
+<a href="/book/add-form">Dodaj następną książkę</a>
+<table>
+    <thead>
+    <tr>
+        <th>
+            Tytuł
+        </th>
+        <th>
+            Autor
+        </th>
+        <th>
+            ISBN
+        </th>
+        <th>
+            Czy pierwsze wydanie?
+        </th>
+        <th>
+            Cena
+        </th>
+        <th>
+            Operacje
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book:${books}">
+        <td th:text="${book.title}">Tytuł</td>
+        <td th:text="${book.authors}">Autor</td>
+
+        <td th:text="${book.isbn}">233-478-54</td>
+
+        <td th:if="${book.firstEdition}">Tak</td>
+        <td th:unless="${book.firstEdition}">Nie</td>
+        <td>
+            <span th:if="${book.price != 0}" th:text="${book.price}">123.5</span>
+            <span th:if="${book.price == 0}" th:text="${book.price}">Za darmo</span>
+        </td>
+        <td>
+            <a th:href="@{/book/admin/delete/{isbn} (isbn=${book.isbn})}">Usuń</a>
+            <a th:href="@{/book/admin/update/{isbn} (isbn=${book.isbn})}">Edytuj</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
