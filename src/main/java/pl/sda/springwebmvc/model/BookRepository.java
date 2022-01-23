@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.*;
 
-@Repository
+@Repository("memoryBookRepository")
 public class BookRepository {
 
     private Map<String, Book> books = new HashMap<>();

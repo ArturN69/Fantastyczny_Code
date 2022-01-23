@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.springwebmvc.model.Book;
 import pl.sda.springwebmvc.model.BookRepository;
+import pl.sda.springwebmvc.service.BookService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,9 +19,9 @@ import java.util.Optional;
 @RequestMapping(value = "/book")
 public class BookController {
 
-    private final BookRepository books;
+    private final BookService books;
 
-    public BookController(BookRepository books) {
+    public BookController(BookService books) {
         this.books = books;
     }
 
