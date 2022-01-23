@@ -61,7 +61,10 @@ public class BookService {
         return bookRepository.findById(isbn)
                 .map(mapFromEntity());
     }
-
+    //Dodanie @Transactional powoduje umieszczenie metody między
+    //em.getTransaction().begin() i em.getTransaction().commit()
+    //więc zmiana w encji zarządzanej jest utrwalana w bazie
+    //nie jest konieczny save(entity)!!!
     @Transactional
     public boolean update(Book book) {
         final Optional<BookEntity> optionalBook = bookRepository.findById(book.getIsbn());
