@@ -35,10 +35,15 @@
         <span th:if="${#fields.hasErrors('price')}"
               th:errors="*{price}"></span><br>
 
+<!--        <label for="publisher">Wydawnictwo</label><br>-->
+<!--        <input type="text" th:field = "*{publisher}"><br>-->
+<!--        <span th:if="${#fields.hasErrors('publisher')}"-->
+<!--              th:errors="*{publisher}"></span><br>-->
         <label for="publisher">Wydawnictwo</label><br>
-        <input type="text" th:field = "*{publisher}"><br>
-        <span th:if="${#fields.hasErrors('publisher')}"
-              th:errors="*{publisher}"></span><br>
+        <select th:field="*{publisher}"> <br>
+            <option th:each="pub: ${publishers}" th:text="${pub}" th:value="${pub}"></option>
+        </select>
+
         <label for="firstEdition">Czy pierwsze wydanie</label><br>
         <input type="checkbox" th:field = "*{firstEdition}"><br>
 

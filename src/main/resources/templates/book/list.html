@@ -40,7 +40,8 @@
                 <td th:if="${book.firstEdition}">Tak</td>
                 <td th:unless="${book.firstEdition}">Nie</td>
                 <td>
-                    <span th:if="${book.price != 0}" th:text="${book.price}">123.5</span>
+<!--                <span th:text="${#numbers.formatDecimal(book.price, 2, 2,'COMMA')}"></span>-->
+                    <span th:text="${#numbers.formatCurrency(book.price)}"></span>
                     <span th:if="${book.price == 0}" th:text="${book.price}">Za darmo</span>
                 </td>
             </tr>

@@ -24,6 +24,17 @@ public class BookController {
         this.books = books;
     }
 
+    @ModelAttribute("publishers")
+    public List<String> publishers(){
+        return List.of(
+                "Helion",
+                "PWN",
+                "Prentice Hall",
+                "Pearson",
+                "Ossolineum"
+        );
+    }
+
     @GetMapping("/add-form")
     public String showAddBookForm(){
         return "/book/add-form";
