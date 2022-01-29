@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table("laptops")
+@Table(name="laptops")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

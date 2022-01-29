@@ -77,7 +77,7 @@ public class BookService {
             if (book.getPublishingYear() == LocalDate.now().getYear()) {
                 entity.setPublicationYear(book.getPublishingYear());
             } else {
-                throw new RuntimeException("Książka nie spłania reguł! Możesz modyfikować tylko książki z br!");
+                throw new RuntimeException("Książka nie spełnia reguł! Możesz modyfikować tylko książki z br!");
             }
             entity.setPublisher(book.getPublisher());
             return true;
