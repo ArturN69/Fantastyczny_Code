@@ -62,7 +62,8 @@ public class SpringWebMvcApplication implements CommandLineRunner {
             );
         }
         //testBuildInQueries();
-        jpqlQueries();
+        //jpqlQueries();
+        testNativeQueries();
     }
 
     void testBuildInQueries(){
@@ -85,5 +86,13 @@ public class SpringWebMvcApplication implements CommandLineRunner {
 
     void jpqlQueries(){
         System.out.println(repository.booksByAuthors("Bloch"));
+        int updated = service.updateFirstEdition("Java", 2000);
+        System.out.println("Liczba zmienionych książek: " + updated);
+        System.out.println(service.findAll());
+    }
+
+    void testNativeQueries(){
+        service.insertBook("345-78-89-3344", "Nowe", 2021);
+        System.out.println(service.findAll());
     }
 }

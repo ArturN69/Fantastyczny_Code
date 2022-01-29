@@ -109,4 +109,14 @@ public class BookService {
     public Long deleteBooksByPublicationYear(int publicationYear){
         return bookRepository.deleteByPublicationYear(publicationYear);
     }
+
+    @Transactional
+    public int updateFirstEdition(String title, int year){
+        return bookRepository.updateFirstEdition(title, year);
+    }
+
+    @Transactional
+    public void insertBook(String isbn, String title, int publicationYear){
+        bookRepository.insertBook(isbn, title, publicationYear);
+    }
 }
