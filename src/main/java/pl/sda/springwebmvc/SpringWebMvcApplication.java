@@ -59,7 +59,7 @@ public class SpringWebMvcApplication implements CommandLineRunner {
                             .price(new BigDecimal("20.5"))
                             .firstEdition(false)
                             .publishingYear(2000)
-                            .tagLabels(Set.of("spring", "jpa"))
+                            .tagLabels(Set.of("spring", "java"))
                             .publisher("Helion")
                             .build()
             );

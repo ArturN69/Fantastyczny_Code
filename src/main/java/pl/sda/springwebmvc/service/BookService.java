@@ -1,5 +1,6 @@
 package pl.sda.springwebmvc.service;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.springwebmvc.entity.BookEntity;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -26,23 +28,31 @@ public class BookService {
     }
 
     public void save(Book book) {
-        bookRepository.save(BookEntity.builder()
-                .title(book.getTitle())
-                .authors(book.getAuthors())
-                .firstEdition(book.getFirstEdition())
-                .price(book.getPrice())
-                .publisher(book.getPublisher())
-                .tags(book.getTagLabels()
-                        .stream()
-                        .map(label -> {
-                            var tag = new TagEntity();
-                            tag.setLabel(label);
-                            return tagRepository.save(tag);
-                        })
-                        .collect(Collectors.toSet()))
-                .isbn(book.getIsbn())
-                .publicationYear(book.getPublishingYear())
-                .build());
+        final Set<String> tagLabels = book.getTagLabels();
+
+        final Set<TagEntity> tags = tagLabels.stream().map(label -> {
+            final TagEntity tagEntity = tagRepository.findTagEntityByLabel(label);
+            if (tagEntity != null) {
+                return tagEntity;
+            }
+            TagEntity tag = new TagEntity();
+            tag.setLabel(label);
+            tagRepository.save(tag);
+            return tag;
+        }).collect(Collectors.toSet());
+
+        bookRepository.save(
+                BookEntity.builder()
+                        .title(book.getTitle())
+                        .authors(book.getAuthors())
+                        .firstEdition(book.getFirstEdition())
+                        .price(book.getPrice())
+                        .publisher(book.getPublisher())
+                        .tags(tags)
+                        .isbn(book.getIsbn())
+                        .publicationYear(book.getPublishingYear())
+                        .build()
+        );
     }
 
     public boolean delete(String isbn) {
