@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -37,6 +39,8 @@ public class Book {
     private String publisher;
 
     private Boolean firstEdition;
+
+    private Set<String> tagLabels = new HashSet<>();
 
     public boolean isFirstEdition(){
         return firstEdition == null ? false : firstEdition;

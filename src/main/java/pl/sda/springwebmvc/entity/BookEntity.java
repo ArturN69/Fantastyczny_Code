@@ -2,10 +2,11 @@ package pl.sda.springwebmvc.entity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -34,4 +35,7 @@ public class BookEntity {
 
     @CreationTimestamp
     private Timestamp created;
+
+    @ManyToMany(targetEntity = TagEntity.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<TagEntity> tags = new HashSet<>();
 }

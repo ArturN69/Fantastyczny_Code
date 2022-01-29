@@ -13,6 +13,7 @@ import pl.sda.springwebmvc.service.BookService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,6 +45,7 @@ public class SpringWebMvcApplication implements CommandLineRunner {
                             .authors("Bloch")
                             .title("Effective Java")
                             .publisher("Pearson")
+                            .tagLabels(Set.of("programming", "java"))
                             .firstEdition(true)
                             .build()
             );
@@ -57,13 +59,15 @@ public class SpringWebMvcApplication implements CommandLineRunner {
                             .price(new BigDecimal("20.5"))
                             .firstEdition(false)
                             .publishingYear(2000)
+                            .tagLabels(Set.of("spring", "jpa"))
                             .publisher("Helion")
                             .build()
             );
         }
+        System.out.println(service.findAll());
         //testBuildInQueries();
         //jpqlQueries();
-        testNativeQueries();
+        //testNativeQueries();
     }
 
     void testBuildInQueries(){

@@ -3,6 +3,7 @@ package pl.sda.springwebmvc.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.springwebmvc.entity.BookEntity;
+import pl.sda.springwebmvc.entity.TagEntity;
 import pl.sda.springwebmvc.model.Book;
 import pl.sda.springwebmvc.repository.BookRepository;
 
@@ -28,6 +29,14 @@ public class BookService {
                 .firstEdition(book.getFirstEdition())
                 .price(book.getPrice())
                 .publisher(book.getPublisher())
+                .tags(book.getTagLabels()
+                        .stream()
+                        .map(label -> {
+                            var tag = new TagEntity();
+                            tag.setLabel(label);
+                            return tag;
+                        })
+                        .collect(Collectors.toSet()))
                 .isbn(book.getIsbn())
                 .publicationYear(book.getPublishingYear())
                 .build());
@@ -52,6 +61,11 @@ public class BookService {
                         .title(entity.getTitle())
                         .publisher(entity.getPublisher())
                         .authors(entity.getAuthors())
+                        .tagLabels(entity.getTags()
+                                .stream()
+                                .map(TagEntity::getLabel)
+                                .collect(Collectors.toSet())
+                        )
                         .price(entity.getPrice())
                         .firstEdition(entity.isFirstEdition())
                         .publishingYear(entity.getPublicationYear())
@@ -62,6 +76,7 @@ public class BookService {
         return bookRepository.findById(isbn)
                 .map(mapFromEntity());
     }
+
     //Dodanie @Transactional powoduje umieszczenie metody między
     //em.getTransaction().begin() i em.getTransaction().commit()
     //więc zmiana w encji zarządzanej jest utrwalana w bazie
@@ -69,7 +84,7 @@ public class BookService {
     @Transactional
     public boolean update(Book book) {
         final Optional<BookEntity> optionalBook = bookRepository.findById(book.getIsbn());
-        if (optionalBook.isPresent()){
+        if (optionalBook.isPresent()) {
             BookEntity entity = optionalBook.get();
             entity.setAuthors(book.getAuthors());
             entity.setTitle(book.getTitle());
@@ -87,36 +102,36 @@ public class BookService {
         }
     }
 
-    public List<Book> findBooksByAuthors(String authors){
+    public List<Book> findBooksByAuthors(String authors) {
         return bookRepository.findBookEntitiesByAuthors(authors)
                 .stream()
                 .map(mapFromEntity())
                 .collect(Collectors.toList());
     }
 
-    public int countBookByAuthors(String authors){
+    public int countBookByAuthors(String authors) {
         return bookRepository.countByAuthors(authors);
     }
 
     @Transactional
-    public List<Book> findBooksByPriceGreaterOrEquals15(){
+    public List<Book> findBooksByPriceGreaterOrEquals15() {
         return bookRepository.readBookEntitiesByPriceGreaterThanEqual(new BigDecimal("15"))
                 .map(mapFromEntity())
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public Long deleteBooksByPublicationYear(int publicationYear){
+    public Long deleteBooksByPublicationYear(int publicationYear) {
         return bookRepository.deleteByPublicationYear(publicationYear);
     }
 
     @Transactional
-    public int updateFirstEdition(String title, int year){
+    public int updateFirstEdition(String title, int year) {
         return bookRepository.updateFirstEdition(title, year);
     }
 
     @Transactional
-    public void insertBook(String isbn, String title, int publicationYear){
+    public void insertBook(String isbn, String title, int publicationYear) {
         bookRepository.insertBook(isbn, title, publicationYear);
     }
 }

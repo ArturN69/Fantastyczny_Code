@@ -39,6 +39,8 @@
 <!--        <input type="text" th:field = "*{publisher}"><br>-->
 <!--        <span th:if="${#fields.hasErrors('publisher')}"-->
 <!--              th:errors="*{publisher}"></span><br>-->
+
+
         <label for="publisher">Wydawnictwo</label><br>
         <select th:field="*{publisher}"> <br>
             <option th:each="pub: ${publishers}" th:text="${pub}" th:value="${pub}"></option>
@@ -47,6 +49,10 @@
         <label for="firstEdition">Czy pierwsze wydanie</label><br>
         <input type="checkbox" th:field = "*{firstEdition}"><br>
 
+        <label>Tagi</label><br>
+        <input type="text" name="tagLabels"><br>
+        <input type="text" name="tagLabels"><br>
+        <input type="text" name="tagLabels"><br>
         <button type="submit">Zapisz</button>
     </form>
 </body>
