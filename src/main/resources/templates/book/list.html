@@ -52,9 +52,9 @@
                     <span th:if="${book.price == 0}" th:text="${book.price}">Za darmo</span>
                 </td>
                 <td>
-                    <p th:each="tag: ${book.tagLabels}">
-                        <span th:text="${tag}"></span>
-                    </p>
+                    <span th:each="tag: ${book.tagLabels}" th:text="|${tag} |">
+
+                    </span>
                 </td>
             </tr>
         </tbody>

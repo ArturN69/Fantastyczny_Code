@@ -6,6 +6,7 @@ import pl.sda.springwebmvc.entity.BookEntity;
 import pl.sda.springwebmvc.entity.TagEntity;
 import pl.sda.springwebmvc.model.Book;
 import pl.sda.springwebmvc.repository.BookRepository;
+import pl.sda.springwebmvc.repository.TagRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,9 +18,11 @@ import java.util.stream.Collectors;
 @Service
 public class BookService {
     private final BookRepository bookRepository;
+    private final TagRepository tagRepository;
 
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, TagRepository tagRepository) {
         this.bookRepository = bookRepository;
+        this.tagRepository = tagRepository;
     }
 
     public void save(Book book) {
@@ -34,7 +37,7 @@ public class BookService {
                         .map(label -> {
                             var tag = new TagEntity();
                             tag.setLabel(label);
-                            return tag;
+                            return tagRepository.save(tag);
                         })
                         .collect(Collectors.toSet()))
                 .isbn(book.getIsbn())
