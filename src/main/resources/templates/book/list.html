@@ -33,7 +33,11 @@
         <tbody>
             <tr th:each="book:${books}">
                 <td th:text="${book.title}">Tytuł</td>
-                <td th:text="${book.authors}">Autor</td>
+
+                <td>
+                    <a th:href="@{/book/byAuthors/{authors} (authors=${book.authors})}"
+                       th:text="${book.authors}"></a>
+                </td>
 
                 <td th:text="${book.isbn}">233-478-54</td>
 

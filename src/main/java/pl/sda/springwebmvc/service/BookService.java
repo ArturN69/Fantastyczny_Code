@@ -6,6 +6,7 @@ import pl.sda.springwebmvc.entity.BookEntity;
 import pl.sda.springwebmvc.model.Book;
 import pl.sda.springwebmvc.repository.BookRepository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -84,5 +85,28 @@ public class BookService {
         } else {
             return false;
         }
+    }
+
+    public List<Book> findBooksByAuthors(String authors){
+        return bookRepository.findBookEntitiesByAuthors(authors)
+                .stream()
+                .map(mapFromEntity())
+                .collect(Collectors.toList());
+    }
+
+    public int countBookByAuthors(String authors){
+        return bookRepository.countByAuthors(authors);
+    }
+
+    @Transactional
+    public List<Book> findBooksByPriceGreaterOrEquals15(){
+        return bookRepository.readBookEntitiesByPriceGreaterThanEqual(new BigDecimal("15"))
+                .map(mapFromEntity())
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Long deleteBooksByPublicationYear(int publicationYear){
+        return bookRepository.deleteByPublicationYear(publicationYear);
     }
 }

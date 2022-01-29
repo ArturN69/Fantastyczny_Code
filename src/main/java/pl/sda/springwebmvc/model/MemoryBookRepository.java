@@ -6,11 +6,11 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Repository("memoryBookRepository")
-public class BookRepository {
+public class MemoryBookRepository {
 
     private Map<String, Book> books = new HashMap<>();
 
-    public BookRepository() {
+    public MemoryBookRepository() {
         final Book book1 = Book.builder()
                 .authors("Adam Nowak")
                 .title("Java")

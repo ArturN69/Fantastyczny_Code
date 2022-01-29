@@ -1,6 +1,5 @@
 package pl.sda.springwebmvc.controller;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,7 +7,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.springwebmvc.model.Book;
-import pl.sda.springwebmvc.model.BookRepository;
 import pl.sda.springwebmvc.service.BookService;
 
 import javax.validation.Valid;
@@ -109,4 +107,11 @@ public class BookController {
             }
         }
     }
+
+    @GetMapping("/byAuthors/{authors}")
+    @ResponseBody
+    public String booksAuthors(@PathVariable String authors){
+        return books.findBooksByAuthors(authors).toString();
+    }
+
 }
