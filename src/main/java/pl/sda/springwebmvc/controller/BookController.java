@@ -114,4 +114,9 @@ public class BookController {
         return books.findBooksByAuthors(authors).toString();
     }
 
+    @GetMapping("/tag/{label}")
+    @ResponseBody
+    public String booksByTag(@PathVariable String label){
+        return books.findByTagLabel(label).toString();
+    }
 }

@@ -11,6 +11,7 @@ import pl.sda.springwebmvc.repository.TagRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -27,6 +28,7 @@ public class BookService {
         this.tagRepository = tagRepository;
     }
 
+    @Transactional
     public void save(Book book) {
         final Set<String> tagLabels = book.getTagLabels();
 
@@ -146,5 +148,9 @@ public class BookService {
     @Transactional
     public void insertBook(String isbn, String title, int publicationYear) {
         bookRepository.insertBook(isbn, title, publicationYear);
+    }
+
+    public List<BookEntity> findByTagLabel(String label){
+        return new ArrayList<>(tagRepository.findTagEntityByLabel(label).getBooks());
     }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -17,4 +18,7 @@ public class TagEntity {
     private String label;
 
     private String description;
+
+    @ManyToMany(mappedBy = "tags")
+    private Set<BookEntity> books;
 }
