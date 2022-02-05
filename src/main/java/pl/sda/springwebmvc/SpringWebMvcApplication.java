@@ -1,33 +1,32 @@
 package pl.sda.springwebmvc;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import pl.sda.springwebmvc.entity.BookEntity;
+import pl.sda.springwebmvc.entity.User;
 import pl.sda.springwebmvc.model.Book;
-import pl.sda.springwebmvc.model.MemoryBookRepository;
 import pl.sda.springwebmvc.repository.BookRepository;
+import pl.sda.springwebmvc.repository.UserRepository;
 import pl.sda.springwebmvc.service.BookService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @SpringBootApplication
 public class SpringWebMvcApplication implements CommandLineRunner {
     private final BookService service;
     private final BookRepository repository;
+    private final UserRepository users;
 
     @PersistenceContext
     private EntityManager em;
 
-    public SpringWebMvcApplication(BookService service, BookRepository repository) {
+    public SpringWebMvcApplication(BookService service, BookRepository repository, UserRepository users) {
         this.service = service;
         this.repository = repository;
+        this.users = users;
     }
 
     public static void main(String[] args) {
@@ -64,7 +63,32 @@ public class SpringWebMvcApplication implements CommandLineRunner {
                             .build()
             );
         }
-        System.out.println(service.findAll());
+        if (!users.existsById(1L)){
+            users.save(
+                    User.builder()
+                            .email("ewa@op.pl")
+                            .enabled(true)
+                            .password("$2a$12$DxhouXpOTZqu5NSv9h0y0e3NFbKANXFKNmG1z/1D5yeWkIUEIoHRe")
+                            .firstName("Ewa")
+                            .lastName("Kowal")
+                            .authority("ROLE_ADMIN")
+                            .build()
+            );
+        }
+        if (!users.existsById(2L)){
+            users.save(
+                    User.builder()
+                            .email("adam@op.pl")
+                            .enabled(true)
+                            .password("$2a$12$DxhouXpOTZqu5NSv9h0y0e3NFbKANXFKNmG1z/1D5yeWkIUEIoHRe")
+                            .firstName("Adam")
+                            .lastName("Nowak")
+                            .authority("ROLE_USER")
+                            .build()
+            );
+        }
+
+        //System.out.println(service.findAll());
         //testBuildInQueries();
         //jpqlQueries();
         //testNativeQueries();
