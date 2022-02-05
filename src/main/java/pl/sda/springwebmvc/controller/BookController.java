@@ -1,11 +1,13 @@
 package pl.sda.springwebmvc.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.springwebmvc.entity.User;
 import pl.sda.springwebmvc.model.Book;
 import pl.sda.springwebmvc.service.BookService;
 
@@ -72,9 +74,10 @@ public class BookController {
     }
 
     @GetMapping("/admin/delete/{isbn}")
-    public String deleteBook(@PathVariable String isbn, Model model){
+    public String deleteBook(@PathVariable String isbn, Model model,@AuthenticationPrincipal User user){
         if (books.delete(isbn)){
             model.addAttribute("isbn", isbn);
+            model.addAttribute("user", user);
             return "/book/admin-confirm-delete";
         } else {
             model.addAttribute("message", "Brak takiej książki! Usunięcie niemożliwe!");
